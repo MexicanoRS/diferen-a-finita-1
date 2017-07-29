@@ -15,7 +15,6 @@ namespace diferença_finita_1
             {
                 Ponto_Temp ponto_novo = new Ponto_Temp(nome, temperatura);
                 Temperatura.Add(ponto_novo);
-                int teste_de_github = 0;
             }
 
         }

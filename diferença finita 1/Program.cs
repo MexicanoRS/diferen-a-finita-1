@@ -21,12 +21,14 @@ namespace diferença_finita_1
 
             Mostrar_Matriz(ref MatrizTotal, "\n\n A mantiz original era: \n\n\n");
 
-
+            //Arrumar esta função depois
+            // Ela já foi remediada
             Criar_Matriz_de_Cálculo(ref MatrizTotal, out double[,] Matriz_Cálculo, out Matriz_Problema);
 
             Mostrar_Matriz(ref Matriz_Cálculo, "\n\n A mantiz de Cálculo que foi instanciada é: \n\n");
 
             Preencher_Matriz_de_Cálculo(ref MatrizTotal, ref Matriz_Cálculo, ref Matriz_Problema);
+
 
             Mostrar_Matriz(ref Matriz_Cálculo, "\n\n A mantiz de Cálculo que foi encontrada é: \n\n");
 
@@ -76,10 +78,11 @@ namespace diferença_finita_1
         /// </summary>
         /// <param name="MatrizTotal">Matriz Tipo Pontos que contêm todos os dados do Problema proposto</param>
         /// <param name="Matriz_Cálculo">Matriz onde se encontram todos os coeficientes</param>
-        private static void Preencher_Matriz_de_Cálculo(ref Pontos MatrizTotal, ref double[,] Matriz_Cálculo, ref Matriz_Simples matriz_Problema )
+        private static void Preencher_Matriz_de_Cálculo(ref Pontos MatrizTotal, ref double[,] Matriz_Cálculo, ref Matriz_Simples m)
         {
+            /// Este código vai varrer ponto por ponto e observar os seus vizinhos para preencher a matriz de cálculo
             int Nome_do_ponto = 0;
-            int N = matriz_Problema.Número_de_Variáveis;
+            int N = m.Número_de_Variáveis;
             for (int i = 0; i < MatrizTotal.Linha.Length; i++)
             {
                 for (int j = 0; j < MatrizTotal.Linha[i].Coluna.Length; j++)
@@ -87,42 +90,51 @@ namespace diferença_finita_1
                     if (MatrizTotal.Linha[i].Coluna[j].nome >= 0)
                     {
                         // Central
-                        Matriz_Cálculo[Nome_do_ponto, MatrizTotal.Linha[i].Coluna[j].nome] = 1 * -4;
+                        m.A[Nome_do_ponto, MatrizTotal.Linha[i].Coluna[j].nome] = -4;
+                        Matriz_Cálculo[Nome_do_ponto, MatrizTotal.Linha[i].Coluna[j].nome] = -4;
 
                         // Direita
                         if (MatrizTotal.Linha[i].Coluna[j - 1].nome < 0)
                         {
+                            m.B[Nome_do_ponto] += -MatrizTotal.Linha[i].Coluna[j - 1].valor;
                             Matriz_Cálculo[Nome_do_ponto, N] += -MatrizTotal.Linha[i].Coluna[j - 1].valor;
                         }
                         else
                         {
+                            m.A[Nome_do_ponto, MatrizTotal.Linha[i].Coluna[j - 1].nome] = 1;
                             Matriz_Cálculo[Nome_do_ponto, MatrizTotal.Linha[i].Coluna[j - 1].nome] = 1;
                         }
                         // Esquerda
                         if (MatrizTotal.Linha[i].Coluna[j + 1].nome < 0)
                         {
+                            m.B[Nome_do_ponto] += -MatrizTotal.Linha[i].Coluna[j + 1].valor;
                             Matriz_Cálculo[Nome_do_ponto, N] += -MatrizTotal.Linha[i].Coluna[j + 1].valor;
                         }
                         else
                         {
+                            m.A[Nome_do_ponto, MatrizTotal.Linha[i].Coluna[j + 1].nome] = 1;
                             Matriz_Cálculo[Nome_do_ponto, MatrizTotal.Linha[i].Coluna[j + 1].nome] = 1;
                         }
                         // Em cima
                         if (MatrizTotal.Linha[i + 1].Coluna[j].nome < 0)
                         {
+                            m.B[Nome_do_ponto] += -MatrizTotal.Linha[i + 1].Coluna[j].valor;
                             Matriz_Cálculo[Nome_do_ponto, N] += -MatrizTotal.Linha[i + 1].Coluna[j].valor;
                         }
                         else
                         {
+                            m.A[Nome_do_ponto, MatrizTotal.Linha[i + 1].Coluna[j].nome] = 1;
                             Matriz_Cálculo[Nome_do_ponto, MatrizTotal.Linha[i + 1].Coluna[j].nome] = 1;
                         }
                         // Em baixo
                         if (MatrizTotal.Linha[i - 1].Coluna[j].nome < 0)
                         {
+                            m.B[Nome_do_ponto] += -MatrizTotal.Linha[i - 1].Coluna[j].valor;
                             Matriz_Cálculo[Nome_do_ponto, N] += -MatrizTotal.Linha[i - 1].Coluna[j].valor;
                         }
                         else
                         {
+                            m.A[Nome_do_ponto, MatrizTotal.Linha[i - 1].Coluna[j].nome] = 1;
                             Matriz_Cálculo[Nome_do_ponto, MatrizTotal.Linha[i - 1].Coluna[j].nome] = 1;
                         }
                         Nome_do_ponto++;
