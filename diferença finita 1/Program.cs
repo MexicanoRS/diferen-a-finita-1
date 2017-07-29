@@ -8,33 +8,28 @@ namespace diferença_finita_1
     partial class Program
     {
 
-
-
         static void Main(string[] args)
         {
 
 
-            Matriz_Simples Matriz_Problema;
-            Pontos MatrizTotal;
 
-            Inicializar_Matriz(out MatrizTotal);
+            Inicializar_Matriz(out Pontos MatrizTotal);
 
             Mostrar_Matriz(ref MatrizTotal, "\n\n A mantiz original era: \n\n\n");
 
-            //Arrumar esta função depois
-            // Ela já foi remediada
-            Criar_Matriz_de_Cálculo(ref MatrizTotal, out double[,] Matriz_Cálculo, out Matriz_Problema);
+            Criar_Matriz_de_Cálculo(ref MatrizTotal, out Matriz_Simples Matriz_Problema);
 
-            Mostrar_Matriz(ref Matriz_Cálculo, "\n\n A mantiz de Cálculo que foi instanciada é: \n\n");
+            Mostrar_Matriz(ref Matriz_Problema, "\n\n A mantiz de Cálculo que foi instanciada é: \n\n");
 
-            Preencher_Matriz_de_Cálculo(ref MatrizTotal, ref Matriz_Cálculo, ref Matriz_Problema);
+            Preencher_Matriz_de_Cálculo(ref MatrizTotal, ref Matriz_Problema);
+
+            Mostrar_Matriz(ref Matriz_Problema, "\n\n A mantiz de Cálculo que foi encontrada é: \n\n");
+
+            Matriz_Problema.Verificar_critério_de_Sassenfeld();
+
+            Matriz_Problema.Solucionar_matriz();
 
 
-            Mostrar_Matriz(ref Matriz_Cálculo, "\n\n A mantiz de Cálculo que foi encontrada é: \n\n");
-
-            Verificar_critério_de_Sassenfeld(ref Matriz_Cálculo);
-
-            Gauss_Siedel(ref Matriz_Cálculo, ref MatrizTotal);
 
             int Linha = 0;
             int Coluna = 0;
@@ -55,7 +50,7 @@ namespace diferença_finita_1
 
         }
 
-        private static void Criar_Matriz_de_Cálculo(ref Pontos matrizTotal, out double[,] matriz_Cálculo, out Matriz_Simples matriz_Problema)
+        private static void Criar_Matriz_de_Cálculo(ref Pontos matrizTotal, out Matriz_Simples matriz_Problema)
         {
             int Número_de_pontos = 0;
             for (int i = 0; i < matrizTotal.Linha.Length; i++)
@@ -69,8 +64,7 @@ namespace diferença_finita_1
                     }
                 }
             }
-            matriz_Problema = new Matriz_Simples(Número_de_pontos);
-            matriz_Cálculo = new double[Número_de_pontos, Número_de_pontos + 1];
+            matriz_Problema = new Matriz_Simples(Número_de_pontos, ref matrizTotal);
         }
 
         /// <summary>
@@ -78,7 +72,7 @@ namespace diferença_finita_1
         /// </summary>
         /// <param name="MatrizTotal">Matriz Tipo Pontos que contêm todos os dados do Problema proposto</param>
         /// <param name="Matriz_Cálculo">Matriz onde se encontram todos os coeficientes</param>
-        private static void Preencher_Matriz_de_Cálculo(ref Pontos MatrizTotal, ref double[,] Matriz_Cálculo, ref Matriz_Simples m)
+        private static void Preencher_Matriz_de_Cálculo(ref Pontos MatrizTotal, ref Matriz_Simples m)
         {
             /// Este código vai varrer ponto por ponto e observar os seus vizinhos para preencher a matriz de cálculo
             int Nome_do_ponto = 0;
@@ -91,51 +85,42 @@ namespace diferença_finita_1
                     {
                         // Central
                         m.A[Nome_do_ponto, MatrizTotal.Linha[i].Coluna[j].nome] = -4;
-                        Matriz_Cálculo[Nome_do_ponto, MatrizTotal.Linha[i].Coluna[j].nome] = -4;
 
                         // Direita
                         if (MatrizTotal.Linha[i].Coluna[j - 1].nome < 0)
                         {
                             m.B[Nome_do_ponto] += -MatrizTotal.Linha[i].Coluna[j - 1].valor;
-                            Matriz_Cálculo[Nome_do_ponto, N] += -MatrizTotal.Linha[i].Coluna[j - 1].valor;
                         }
                         else
                         {
                             m.A[Nome_do_ponto, MatrizTotal.Linha[i].Coluna[j - 1].nome] = 1;
-                            Matriz_Cálculo[Nome_do_ponto, MatrizTotal.Linha[i].Coluna[j - 1].nome] = 1;
                         }
                         // Esquerda
                         if (MatrizTotal.Linha[i].Coluna[j + 1].nome < 0)
                         {
                             m.B[Nome_do_ponto] += -MatrizTotal.Linha[i].Coluna[j + 1].valor;
-                            Matriz_Cálculo[Nome_do_ponto, N] += -MatrizTotal.Linha[i].Coluna[j + 1].valor;
                         }
                         else
                         {
                             m.A[Nome_do_ponto, MatrizTotal.Linha[i].Coluna[j + 1].nome] = 1;
-                            Matriz_Cálculo[Nome_do_ponto, MatrizTotal.Linha[i].Coluna[j + 1].nome] = 1;
                         }
                         // Em cima
                         if (MatrizTotal.Linha[i + 1].Coluna[j].nome < 0)
                         {
                             m.B[Nome_do_ponto] += -MatrizTotal.Linha[i + 1].Coluna[j].valor;
-                            Matriz_Cálculo[Nome_do_ponto, N] += -MatrizTotal.Linha[i + 1].Coluna[j].valor;
                         }
                         else
                         {
                             m.A[Nome_do_ponto, MatrizTotal.Linha[i + 1].Coluna[j].nome] = 1;
-                            Matriz_Cálculo[Nome_do_ponto, MatrizTotal.Linha[i + 1].Coluna[j].nome] = 1;
                         }
                         // Em baixo
                         if (MatrizTotal.Linha[i - 1].Coluna[j].nome < 0)
                         {
                             m.B[Nome_do_ponto] += -MatrizTotal.Linha[i - 1].Coluna[j].valor;
-                            Matriz_Cálculo[Nome_do_ponto, N] += -MatrizTotal.Linha[i - 1].Coluna[j].valor;
                         }
                         else
                         {
                             m.A[Nome_do_ponto, MatrizTotal.Linha[i - 1].Coluna[j].nome] = 1;
-                            Matriz_Cálculo[Nome_do_ponto, MatrizTotal.Linha[i - 1].Coluna[j].nome] = 1;
                         }
                         Nome_do_ponto++;
                     }
@@ -341,118 +326,30 @@ namespace diferença_finita_1
             Console.Write("\n Tecle calquer tecla para continuar:\n");
             Console.ReadKey();
         }
-
-
-        /// <summary>
-        /// Verifica se a matriz de Cálculo tem solução e se converge para ela.
-        /// </summary>
-        /// <param name="Matriz_Cálculo"></param>
-        public static void Verificar_critério_de_Sassenfeld(ref double[,] Matriz_Cálculo)
+        public static void Mostrar_Matriz(ref Matriz_Simples Matriz, string texto = "\n Matriz Gerada\n\n\n")
         {
-            int N = Convert.ToInt32(Math.Truncate(Math.Sqrt(Matriz_Cálculo.Length)));
-            double[] Sassen = new double[N];
-
-            // Instancia um array com todos os valores pré-setados em 1
-            int contador = 0;
-            foreach (double valor in Sassen)
+            Console.Write(texto);
+            for (int i = 0; i < Matriz.Número_de_Variáveis; i++)
             {
-                Sassen[contador] = 1;
-                contador++;
-            }
-            for (int i = 0; i < N; i++)
-            {
-                double Novo_Sassen = 0;
-                for (int j = 0; j < N; j++)
+                Console.Write("  ");
+                for (int j = 0; j < Matriz.Número_de_Variáveis; j++)
                 {
-                    if (i != j)
+                    if (j == 0)
                     {
-                        Novo_Sassen += Sassen[j] * Math.Abs(Matriz_Cálculo[i, j]);
+                        Console.Write("| {0:#0.##}", Matriz.A[i, j]);
                     }
+
+                    if (j != Matriz.Número_de_Variáveis - 1)
+                        Console.Write(" {0:#0.##}", Matriz.A[i, j]);
+                    else
+                        Console.Write("{0:#0.##} | | {1:#0.##} |  | {2:#0.##} |", Matriz.A[i, j], Matriz.X[i], Matriz.B[i]);
                 }
-                Sassen[i] = Novo_Sassen / Math.Abs(Matriz_Cálculo[i, i]);
+                Console.Write("\n\n");
             }
-            Console.Write("\n Para a Matriz de Cálculo convergir para a solução,\n o vetor de Sassenfeld tem que ter todos os valores menores que 1");
-            Mostrar_Matriz(ref Sassen, "\n\n O vetor de Sassenfeld que foi encontrado é: \n\n");
-            contador = 0;
-            bool flag = false;
-            foreach (double valor in Sassen)
-            {
-                if (Sassen[contador] >= 1)
-                {
-                    flag = true;
-                }
-                contador++;
-            }
-            if (flag)
-            {
-                Console.Write("\n A Matriz Não Passou no critério de Sassenfeld\n\n");
-            }
-            else
-            {
-                Console.Write("\n OK. A Matriz Passou no critério de Sassenfeld\n\n");
-            }
-            Console.Write("\n Tecle calquer tecla para continuar:\n");
+            Console.Write("\n\n\n Tecle calquer tecla para continuar:\n");
             Console.ReadKey();
         }
 
-        public static void Gauss_Siedel(ref double[,] Matriz_Cálculo, ref Pontos Matriz)
-        {
-            // determina o número de variáveis da matriz de cálculo 
-            int N = Convert.ToInt32(Math.Truncate(Math.Sqrt(Matriz_Cálculo.Length)));
-            double[] X = new double[N];
-            int contador = 0;
-            foreach (double valor in X)
-            {
-                X[contador] = 1;
-                contador++;
-            }
-            double[] B = new double[N];
-            contador = 0;
-            foreach (double valor in X)
-            {
-                B[contador] = Matriz_Cálculo[contador, N];
-                contador++;
-            }
-
-            int k = 0;
-            int tol = 10000;
-            while (k < tol)
-            {
-                for (int i = 0; i <= N - 1; i++)
-                {
-                    X[i] = (B[i] - somat(i, N, ref Matriz_Cálculo, ref X) + Matriz_Cálculo[i, i] * X[i]) / Matriz_Cálculo[i, i];
-                }
-                k++;
-            }
-
-            Mostrar_Matriz(ref X, "\n\n O vetor Solução que foi encontrado é: \n\n");
-
-            int Contador = 0;
-            for (int i = 0; i < Matriz.Linha.Length; i++)
-            {
-                for (int j = 0; j < Matriz.Linha[i].Coluna.Length; j++)
-                {
-                    if (Matriz.Linha[i].Coluna[j].nome >= 0)
-                    {
-                        Matriz.Linha[i].Coluna[j].valor = X[Contador];
-                        Contador++;
-                    }
-                }
-            }
-            Mostrar_Matriz(ref Matriz, "\n\n A mantiz final foi: \n\n\n\n");
-        }
-
-        public static double somat(int i, int N, ref double[,] Matriz_Cálculo, ref double[] X)
-        {
-            {
-                double soma = 0;
-                for (int j = 0; j <= N - 1; j++)
-                {
-                    soma += Matriz_Cálculo[i, j] * X[j];
-                }
-                return soma;
-            }
-        }
     }
 }
 
