@@ -11,8 +11,6 @@ namespace diferença_finita_1
         static void Main(string[] args)
         {
 
-
-
             Inicializar_Matriz(out Pontos MatrizTotal);
 
             Mostrar_Matriz(ref MatrizTotal, "\n\n A mantiz original era: \n\n\n");
@@ -38,7 +36,7 @@ namespace diferença_finita_1
             {
                 foreach (Coluna_da_Matriz coluna in linha.Coluna)
                 {
-                    writer.Write("{0} {1} {2} \r\n", Linha, Coluna, coluna.valor);
+                    writer.Write("{0} {1} {2} \r\n", Linha, Coluna, coluna.Valor);
                     Coluna++;
                 }
                 Linha++;
@@ -57,9 +55,9 @@ namespace diferença_finita_1
             {
                 for (int j = 0; j < matrizTotal.Linha[i].Coluna.Length; j++)
                 {
-                    if (matrizTotal.Linha[i].Coluna[j].nome >= 0)
+                    if (matrizTotal.Linha[i].Coluna[j].Nome >= 0)
                     {
-                        matrizTotal.Linha[i].Coluna[j].nome = Número_de_pontos;
+                        matrizTotal.Linha[i].Coluna[j].Nome = Número_de_pontos;
                         Número_de_pontos++;
                     }
                 }
@@ -81,46 +79,46 @@ namespace diferença_finita_1
             {
                 for (int j = 0; j < MatrizTotal.Linha[i].Coluna.Length; j++)
                 {
-                    if (MatrizTotal.Linha[i].Coluna[j].nome >= 0)
+                    if (MatrizTotal.Linha[i].Coluna[j].Nome >= 0)
                     {
                         // Central
-                        m.A[Nome_do_ponto, MatrizTotal.Linha[i].Coluna[j].nome] = -4;
+                        m.A[Nome_do_ponto, MatrizTotal.Linha[i].Coluna[j].Nome] = -4;
 
                         // Direita
-                        if (MatrizTotal.Linha[i].Coluna[j - 1].nome < 0)
+                        if (MatrizTotal.Linha[i].Coluna[j - 1].Nome < 0)
                         {
-                            m.B[Nome_do_ponto] += -MatrizTotal.Linha[i].Coluna[j - 1].valor;
+                            m.B[Nome_do_ponto] += -MatrizTotal.Linha[i].Coluna[j - 1].Valor;
                         }
                         else
                         {
-                            m.A[Nome_do_ponto, MatrizTotal.Linha[i].Coluna[j - 1].nome] = 1;
+                            m.A[Nome_do_ponto, MatrizTotal.Linha[i].Coluna[j - 1].Nome] = 1;
                         }
                         // Esquerda
-                        if (MatrizTotal.Linha[i].Coluna[j + 1].nome < 0)
+                        if (MatrizTotal.Linha[i].Coluna[j + 1].Nome < 0)
                         {
-                            m.B[Nome_do_ponto] += -MatrizTotal.Linha[i].Coluna[j + 1].valor;
+                            m.B[Nome_do_ponto] += -MatrizTotal.Linha[i].Coluna[j + 1].Valor;
                         }
                         else
                         {
-                            m.A[Nome_do_ponto, MatrizTotal.Linha[i].Coluna[j + 1].nome] = 1;
+                            m.A[Nome_do_ponto, MatrizTotal.Linha[i].Coluna[j + 1].Nome] = 1;
                         }
                         // Em cima
-                        if (MatrizTotal.Linha[i + 1].Coluna[j].nome < 0)
+                        if (MatrizTotal.Linha[i + 1].Coluna[j].Nome < 0)
                         {
-                            m.B[Nome_do_ponto] += -MatrizTotal.Linha[i + 1].Coluna[j].valor;
+                            m.B[Nome_do_ponto] += -MatrizTotal.Linha[i + 1].Coluna[j].Valor;
                         }
                         else
                         {
-                            m.A[Nome_do_ponto, MatrizTotal.Linha[i + 1].Coluna[j].nome] = 1;
+                            m.A[Nome_do_ponto, MatrizTotal.Linha[i + 1].Coluna[j].Nome] = 1;
                         }
                         // Em baixo
-                        if (MatrizTotal.Linha[i - 1].Coluna[j].nome < 0)
+                        if (MatrizTotal.Linha[i - 1].Coluna[j].Nome < 0)
                         {
-                            m.B[Nome_do_ponto] += -MatrizTotal.Linha[i - 1].Coluna[j].valor;
+                            m.B[Nome_do_ponto] += -MatrizTotal.Linha[i - 1].Coluna[j].Valor;
                         }
                         else
                         {
-                            m.A[Nome_do_ponto, MatrizTotal.Linha[i - 1].Coluna[j].nome] = 1;
+                            m.A[Nome_do_ponto, MatrizTotal.Linha[i - 1].Coluna[j].Nome] = 1;
                         }
                         Nome_do_ponto++;
                     }
@@ -140,9 +138,9 @@ namespace diferença_finita_1
             {
                 for (int j = 0; j < MatrizTotal.Linha[i].Coluna.Length; j++)
                 {
-                    if (MatrizTotal.Linha[i].Coluna[j].nome >= 0)
+                    if (MatrizTotal.Linha[i].Coluna[j].Nome >= 0)
                     {
-                        MatrizTotal.Linha[i].Coluna[j].nome = Número_de_pontos;
+                        MatrizTotal.Linha[i].Coluna[j].Nome = Número_de_pontos;
                         Número_de_pontos++;
                     }
                 }
@@ -238,7 +236,7 @@ namespace diferença_finita_1
                                 {
                                     if (valor != "")
                                     {
-                                        MatrizTotal.Linha[contador1].Coluna[contador2].valor = Matriz_de_Temperaturas.Temperatura[Convert.ToInt32(valor)].Temperatura;
+                                        MatrizTotal.Linha[contador1].Coluna[contador2].Valor = Matriz_de_Temperaturas.Temperatura[Convert.ToInt32(valor)].Temperatura;
                                         contador2++;
                                     }
                                 }
@@ -253,7 +251,7 @@ namespace diferença_finita_1
                                 {
                                     if (valor != "")
                                     {
-                                        MatrizTotal.Linha[contador1].Coluna[contador2].nome = Convert.ToInt32(valor) * -1;
+                                        MatrizTotal.Linha[contador1].Coluna[contador2].Nome = Convert.ToInt32(valor) * -1;
                                         contador2++;
                                     }
                                 }
@@ -284,13 +282,13 @@ namespace diferença_finita_1
                 Console.Write("\t");
                 for (int j = 0; j < Matriz.Linha[i].Coluna.Length; j++)
                 {
-                    if (Matriz.Linha[i].Coluna[j].nome < 0 && Matriz.Linha[i].Coluna[j].valor == 0)
+                    if (Matriz.Linha[i].Coluna[j].Nome < 0 && Matriz.Linha[i].Coluna[j].Valor == 0)
                         Console.Write("       ");
                     else
-                    if (Matriz.Linha[i].Coluna[j].valor >= 0)
-                        Console.Write("  {0:00.00}", Matriz.Linha[i].Coluna[j].valor);
+                    if (Matriz.Linha[i].Coluna[j].Valor >= 0)
+                        Console.Write("  {0:00.00}", Matriz.Linha[i].Coluna[j].Valor);
                     else
-                        Console.Write(" {0:00.00}", Matriz.Linha[i].Coluna[j].valor);
+                        Console.Write(" {0:00.00}", Matriz.Linha[i].Coluna[j].Valor);
                 }
                 Console.Write("\n\n");
             }

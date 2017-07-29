@@ -7,7 +7,7 @@ namespace diferença_finita_1
         /// <summary>
         /// Esta Classe define alguns tipos mais básicos de matrizes lineares
         /// </summary>
-        public class Matriz_Simples : IMatriz_Simples
+        public class Matriz_Simples : Interfaces
         {
             /// <summary>
             /// Controi as Mtrizes simples A[N,N] e B[N] e X[N].
@@ -22,22 +22,35 @@ namespace diferença_finita_1
                 matriz_Problema = Matriz_Fonte;
                 a = new double[Número_de_Variáveis, Número_de_Variáveis];
                 b = new double[Número_de_Variáveis];
+                Sassen = new double[Número_de_Variáveis];
                 if (Dimensão_X == 1)
                 {
                     x = new double[Número_de_Variáveis];
                 }
             }
 
+            private double[] sassen;
+            /// <summary>
+            /// Valores de Sassenfield para o critério do método de Gaus-Siedel
+            /// </summary>
+            public double[] Sassen
+            {
+                get { return sassen; }
+                internal set { sassen = value; }
+            }
+
+
             private Pontos matriz_Problema;
 
+            /// <summary>
+            /// Armazena por referencia a matriz condições iniciais
+            /// </summary>
             public Pontos Matriz_Problema
             {
                 get { return matriz_Problema; }
                 set { matriz_Problema = value; }
             }
-
-
-
+            
             private double[,] a;
             /// <summary>
             /// Matriz de Coeficientes
@@ -82,9 +95,6 @@ namespace diferença_finita_1
             /// </summary>
             public void Verificar_critério_de_Sassenfeld()
             {
-                int N = número_de_Variáveis;
-                double[] Sassen = new double[N];
-
                 // Instancia um array com todos os valores pré-setados em 1
                 int contador = 0;
                 foreach (double valor in Sassen)
@@ -92,10 +102,10 @@ namespace diferença_finita_1
                     Sassen[contador] = 1;
                     contador++;
                 }
-                for (int i = 0; i < N; i++)
+                for (int i = 0; i < Número_de_Variáveis; i++)
                 {
                     double Novo_Sassen = 0;
-                    for (int j = 0; j < N; j++)
+                    for (int j = 0; j < Número_de_Variáveis; j++)
                     {
                         if (i != j)
                         {
@@ -104,8 +114,8 @@ namespace diferença_finita_1
                     }
                     Sassen[i] = Novo_Sassen / Math.Abs(A[i, i]);
                 }
-                Console.Write("\n Para a Matriz de Cálculo convergir para a solução,\n o vetor de Sassenfeld tem que ter todos os valores menores que 1");
-                Mostrar_Matriz(ref Sassen, "\n\n O vetor de Sassenfeld que foi encontrado é: \n\n");
+                //Console.Write("\n Para a Matriz de Cálculo convergir para a solução,\n o vetor de Sassenfeld tem que ter todos os valores menores que 1");
+                //Mostrar_Matriz(ref Sassen, "\n\n O vetor de Sassenfeld que foi encontrado é: \n\n");
                 contador = 0;
                 bool flag = false;
                 foreach (double valor in Sassen)
@@ -178,9 +188,9 @@ namespace diferença_finita_1
                 {
                     for (int j = 0; j < matriz_Problema.Linha[i].Coluna.Length; j++)
                     {
-                        if (matriz_Problema.Linha[i].Coluna[j].nome >= 0)
+                        if (matriz_Problema.Linha[i].Coluna[j].Nome >= 0)
                         {
-                            matriz_Problema.Linha[i].Coluna[j].valor = X[Contador];
+                            matriz_Problema.Linha[i].Coluna[j].Valor = X[Contador];
                             Contador++;
                         }
                     }

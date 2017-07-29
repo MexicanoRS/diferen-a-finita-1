@@ -17,7 +17,7 @@
             }
         }
 
-        public class Linha_da_Matriz
+        public class Linha_da_Matriz 
         {
             public Coluna_da_Matriz[] Coluna;
             public Linha_da_Matriz(int coluna)
@@ -26,11 +26,10 @@
             }
         }
 
-        public struct Coluna_da_Matriz
+        public struct Coluna_da_Matriz : IColuna_da_Matriz
         {
-            public double valor;
-            public int nome;
-            //public int Linha, Coluna;
+            public double Valor { get; set; }
+            public int Nome { get; set; }
         }
 
     }

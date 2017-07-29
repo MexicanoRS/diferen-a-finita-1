@@ -58,8 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IMatriz_de_Temp.cs" />
-    <Compile Include="IMatriz_Simples.cs" />
+    <Compile Include="Interfaces.cs" />
     <Compile Include="Matriz_Simples.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Program.Matriz_de_Temp.cs" />
