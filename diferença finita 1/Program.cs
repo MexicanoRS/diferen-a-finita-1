@@ -27,6 +27,9 @@ namespace diferença_finita_1
 
             Matriz_Problema.Solucionar_matriz();
 
+            Salvar_Solução(ref Matriz_Problema, ref MatrizTotal);
+
+            Mostrar_Matriz(Matriz_Problema.A);
             Mostrar_Matriz(ref MatrizTotal);
 
             //int Linha = 0;
@@ -46,6 +49,21 @@ namespace diferença_finita_1
             //writer.Close();
 
 
+        }
+
+        private static void Salvar_Solução(ref Matriz_Simples matriz_Problema, ref Pontos matrizTotal)
+        {
+            int N = matriz_Problema.Número_de_Variáveis;
+            for (int i = 0; i < matrizTotal.Linha.Length; i++)
+            {
+                for (int j = 0; j < matrizTotal.Linha[i].Coluna.Length; j++)
+                {
+                    if (matrizTotal.Linha[i].Coluna[j].Nome >= 0)
+                    {
+                        matrizTotal.Linha[i].Coluna[j].Valor = matriz_Problema.X[matrizTotal.Linha[i].Coluna[j].Nome];
+                    }
+                }
+            }
         }
 
         private static void Criar_Matriz_de_Cálculo(ref Pontos matrizTotal, out Matriz_Simples matriz_Problema)
@@ -294,7 +312,7 @@ namespace diferença_finita_1
             Console.Write("\n\n\n Tecle calquer tecla para continuar:\n");
             Console.ReadKey();
         }
-        public static void Mostrar_Matriz(ref double[,] m, string texto = "\n Matriz Gerada\n\n")
+        public static void Mostrar_Matriz(double[,] m, string texto = "\n Matriz Gerada\n\n")
         {
             Console.Write(texto);
             for (int i = 0; i < m.GetLength(0); i++)
@@ -309,7 +327,7 @@ namespace diferença_finita_1
             Console.Write("\n Tecle calquer tecla para continuar:\n");
             Console.ReadKey();
         }
-        public static void Mostrar_Matriz(ref double[] m, string texto = "\n Matriz Gerada\n\n")
+        public static void Mostrar_Matriz(double[] m, string texto = "\n Matriz Gerada\n\n")
         {
             Console.Write(texto);
             for (int i = 0; i < m.Length; i++)
