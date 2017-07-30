@@ -6,10 +6,14 @@
         double[] B { get; set; }
         int Número_de_Variáveis { get; }
         double[] X { get; set; }
+        int Número_de_Tentativas { get; }
+        void Solucionar_matriz();
+        double[] Sassen {get; }
+        bool Verificar_critério_de_Sassenfeld();
+        int Interações { get; set; }
+        int Precisão {get; set; }    
 
-        void Solucionar_matriz(double Precisão = 2, int Núm_MaxInterações = 10000);
-        void Verificar_critério_de_Sassenfeld();
-    }
+}
 
     public interface IColuna_da_Matriz
     {
