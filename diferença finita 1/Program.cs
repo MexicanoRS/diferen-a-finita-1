@@ -27,6 +27,7 @@ namespace diferença_finita_1
 
             Matriz_Problema.Solucionar_matriz();
 
+            Mostrar_Matriz(ref MatrizTotal);
 
             //int Linha = 0;
             //int Coluna = 0;
@@ -153,7 +154,7 @@ namespace diferença_finita_1
         /// <param name="MatrizTotal">Matriz vazia onde vão ser armazenadas todos os pontos</param>
         public static void Inicializar_Matriz(out Pontos MatrizTotal)
         {
-            string[] Linhas = File.ReadAllLines(@"caso muito grande.txt", Encoding.UTF8);
+            string[] Linhas = File.ReadAllLines(@"Caso Final.txt", Encoding.UTF8);
             Matriz_de_Temp Matriz_de_Temperaturas = new Matriz_de_Temp();
             Matriz_de_Temperaturas.Adicionar_Ponto(0, 0);
             int Caso = 0;
