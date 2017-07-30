@@ -28,22 +28,21 @@ namespace diferença_finita_1
             Matriz_Problema.Solucionar_matriz();
 
 
-
-            int Linha = 0;
-            int Coluna = 0;
-            StreamWriter writer = new StreamWriter("saida.txt");
-            foreach (Linha_da_Matriz linha in MatrizTotal.Linha)
-            {
-                foreach (Coluna_da_Matriz coluna in linha.Coluna)
-                {
-                    writer.Write("{0} {1} {2} \r\n", Linha, Coluna, coluna.Valor);
-                    Coluna++;
-                }
-                Linha++;
-                writer.Write("\r\n");
-                Coluna = 0;
-            }
-            writer.Close();
+            //int Linha = 0;
+            //int Coluna = 0;
+            //StreamWriter writer = new StreamWriter("saida.txt");
+            //foreach (Linha_da_Matriz linha in MatrizTotal.Linha)
+            //{
+            //    foreach (Coluna_da_Matriz coluna in linha.Coluna)
+            //    {
+            //        writer.Write("{0} {1} {2} \r\n", Linha, Coluna, coluna.Valor);
+            //        Coluna++;
+            //    }
+            //    Linha++;
+            //    writer.Write("\r\n");
+            //    Coluna = 0;
+            //}
+            //writer.Close();
 
 
         }
@@ -177,7 +176,6 @@ namespace diferença_finita_1
                             {
                                 Valores = linha.Split(' ');
                                 Matriz_de_Temperaturas.Adicionar_Ponto(Convert.ToInt32(Valores[0]), Convert.ToDouble(Valores[1], System.Globalization.CultureInfo.CurrentCulture));
-
                                 break;
                             }
                         case 2:
