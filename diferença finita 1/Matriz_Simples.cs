@@ -1,5 +1,6 @@
 ﻿using System;
 
+
 namespace diferença_finita_1
 {
     partial class Program
@@ -13,7 +14,9 @@ namespace diferença_finita_1
             /// Controi as Mtrizes simples A[N,N] e B[N] e X[N].
             /// </summary>
             /// <param name="Número_de_Variáveis">Númeor de Variáveis da Matiriz</param>
+            /// <param name="Matriz_Fonte">Matriz original do problema</param>
             /// <param name="Dimensão_X">Ainda não implementado</param>
+            ///
             public Matriz_Simples(int Número_de_Variáveis, ref Pontos Matriz_Fonte, decimal Dimensão_X = 1)
             {
                 if (Número_de_Variáveis <= 0) throw new ArgumentOutOfRangeException("Número_de_Variáveis", Número_de_Variáveis, "Insira um númeor de Variáveis Acima de 0.");
@@ -28,6 +31,44 @@ namespace diferença_finita_1
                     x = new double[Número_de_Variáveis];
                 }
             }
+
+            /// <summary>
+            /// informa a quantidade de interações até alcançar a solução com o número de casas decimais necessários
+            /// </summary>
+            private int número_de_Tentativas = 0;
+
+            public int Número_de_Tentativas
+            {
+                get { return número_de_Tentativas = 0; }
+                internal set { número_de_Tentativas = value; }
+            }
+
+
+
+            private int interações = 10000;
+            /// <summary>
+            /// Númeor de Interações. Padrão 10.000
+            /// </summary>
+            public int Interações
+            {
+                get { return interações; }
+                set { interações = value; }
+            }
+            private int precisão = 2;
+            /// <summary>
+            /// Númeor de casas
+            /// </summary>
+            public int Precisão
+            {
+                get { return precisão; }
+                set
+                {
+                    if (value < 0 || value > 12) throw new ArgumentOutOfRangeException("Precissão", value, "Insira um número de casas decimais de precisão entre 0 e 11.");
+                    precisão = value;
+                }
+            }
+
+
 
             private double[] sassen;
             /// <summary>
@@ -50,7 +91,7 @@ namespace diferença_finita_1
                 get { return matriz_Problema; }
                 set { matriz_Problema = value; }
             }
-            
+
             private double[,] a;
             /// <summary>
             /// Matriz de Coeficientes
@@ -93,7 +134,7 @@ namespace diferença_finita_1
             /// <summary>
             /// Verifica se a matriz de Cálculo tem solução e se converge para ela.
             /// </summary>
-            public void Verificar_critério_de_Sassenfeld()
+            public bool Verificar_critério_de_Sassenfeld()
             {
                 // Instancia um array com todos os valores pré-setados em 1
                 int contador = 0;
@@ -114,8 +155,6 @@ namespace diferença_finita_1
                     }
                     Sassen[i] = Novo_Sassen / Math.Abs(A[i, i]);
                 }
-                //Console.Write("\n Para a Matriz de Cálculo convergir para a solução,\n o vetor de Sassenfeld tem que ter todos os valores menores que 1");
-                //Mostrar_Matriz(ref Sassen, "\n\n O vetor de Sassenfeld que foi encontrado é: \n\n");
                 contador = 0;
                 bool flag = false;
                 foreach (double valor in Sassen)
@@ -123,23 +162,15 @@ namespace diferença_finita_1
                     if (Sassen[contador] >= 1)
                     {
                         flag = true;
+                        return flag;
                     }
                     contador++;
                 }
-                if (flag)
-                {
-                    Console.Write("\n A Matriz Não Passou no critério de Sassenfeld\n\n");
-                }
-                else
-                {
-                    Console.Write("\n OK. A Matriz Passou no critério de Sassenfeld\n\n");
-                }
-                Console.Write("\n Tecle calquer tecla para continuar:\n");
-                Console.ReadKey();
+                return flag;
             }
 
 
-            public void Solucionar_matriz(double Precisão=2,int Núm_MaxInterações = 10000)
+            public void Solucionar_matriz()
             {
                 // determina o número de variáveis da matriz de cálculo 
                 int N = Número_de_Variáveis;
@@ -149,21 +180,22 @@ namespace diferença_finita_1
                     X[contador] = 1;
                     contador++;
                 }
-
                 double[] Erro = new double[Número_de_Variáveis];
                 bool Para_interação = true;
-                double ValordePrecisão = 1 / Math.Pow(10,Precisão+1);
+
+
+                double ValordePrecisão = 1 / Math.Pow(10, Precisão + 1);
                 int k = 0;
-                while (k < Núm_MaxInterações)
+                while (k < Interações)
                 {
                     for (int i = 0; i < Número_de_Variáveis; i++)
                     {
-                        Erro[i] = X[i]; 
+                        Erro[i] = X[i];
                         X[i] = (B[i] - Somat(i) + A[i, i] * X[i]) / A[i, i];
-                        Erro[i] = Math.Abs(Erro[i]-X[i]);
+                        Erro[i] = Math.Abs(Erro[i] - X[i]);
                     }
                     Para_interação = true;
-                    for (int i=0;i < Número_de_Variáveis; i++)
+                    for (int i = 0; i < Número_de_Variáveis; i++)
                     {
                         if (Erro[i] > ValordePrecisão)
                         {
@@ -174,28 +206,7 @@ namespace diferença_finita_1
                     if (Para_interação) break;
                     k++;
                 }
-
-                if (k <= Núm_MaxInterações)
-                {
-                    Console.Write( "\n\n A respostas com todos os valores do vetor X icónitas com {0} casas de precisão foi encontrada em {1} interações \n\n", Precisão, k);
-                }
-                else
-                {
-                    Console.Write("\n\n A respostas com todos os valores do vetor X icónitas com {0} casas de precisão Não foi encontrada em {1} interações \n\n", Precisão, k);
-                }
-                int Contador = 0;
-                for (int i = 0; i < matriz_Problema.Linha.Length; i++)
-                {
-                    for (int j = 0; j < matriz_Problema.Linha[i].Coluna.Length; j++)
-                    {
-                        if (matriz_Problema.Linha[i].Coluna[j].Nome >= 0)
-                        {
-                            matriz_Problema.Linha[i].Coluna[j].Valor = X[Contador];
-                            Contador++;
-                        }
-                    }
-                }
-                Mostrar_Matriz(ref matriz_Problema, "\n\n A mantiz final foi: \n\n\n\n");
+                Número_de_Tentativas = k;
             }
 
             private double Somat(int i)
