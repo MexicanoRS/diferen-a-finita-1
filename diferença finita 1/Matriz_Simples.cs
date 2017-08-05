@@ -16,13 +16,13 @@ namespace diferença_finita_1
             /// <param name="Número_de_Variáveis">Númeor de Variáveis da Matiriz</param>
             /// <param name="Matriz_Fonte">Matriz original do problema</param>
             /// <param name="Dimensão_X">Ainda não implementado</param>
-            ///
-            public Matriz_Simples(int Número_de_Variáveis, ref Pontos Matriz_Fonte, decimal Dimensão_X = 1)
+            /// , ref Pontos Matriz_Fonte
+            public Matriz_Simples(int Número_de_Variáveis, decimal Dimensão_X = 1)
             {
                 if (Número_de_Variáveis <= 0) throw new ArgumentOutOfRangeException("Número_de_Variáveis", Número_de_Variáveis, "Insira um númeor de Variáveis Acima de 0.");
                 if (Dimensão_X != 1) throw new NotImplementedException("Ainda Não implementei para dimenões maiores de X[].");
                 número_de_Variáveis = Número_de_Variáveis;
-                matriz_Problema = Matriz_Fonte;
+               // matriz_Problema = Matriz_Fonte;
                 a = new double[Número_de_Variáveis, Número_de_Variáveis];
                 b = new double[Número_de_Variáveis];
                 Sassen = new double[Número_de_Variáveis];
@@ -81,16 +81,16 @@ namespace diferença_finita_1
             }
 
 
-            private Pontos matriz_Problema;
-
-            /// <summary>
-            /// Armazena por referencia a matriz condições iniciais
-            /// </summary>
-            public Pontos Matriz_Problema
-            {
-                get { return matriz_Problema; }
-                set { matriz_Problema = value; }
-            }
+           // private Pontos matriz_Problema;
+           //
+            ///// <summary>
+            ///// Armazena por referencia a matriz condições iniciais
+            ///// </summary>
+            //public Pontos Matriz_Problema
+            //{
+             //   get { return matriz_Problema; }
+             //   set { matriz_Problema = value; }
+            //}
 
             private double[,] a;
             /// <summary>

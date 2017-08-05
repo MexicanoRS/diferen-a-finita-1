@@ -80,7 +80,7 @@ namespace diferença_finita_1
                     }
                 }
             }
-            matriz_Problema = new Matriz_Simples(Número_de_pontos, ref matrizTotal);
+            matriz_Problema = new Matriz_Simples(Número_de_pontos);//, ref matrizTotal
         }
 
         /// <summary>

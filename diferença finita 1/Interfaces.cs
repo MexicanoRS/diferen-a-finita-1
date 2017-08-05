@@ -1,6 +1,6 @@
 ﻿namespace diferença_finita_1
 {
-    public interface Interfaces 
+        public interface Interfaces 
     {
         double[,] A { get; set; }
         double[] B { get; set; }
