@@ -32,21 +32,21 @@ namespace diferença_finita_1
             Mostrar_Matriz(Matriz_Problema.A);
             Mostrar_Matriz(ref MatrizTotal);
 
-            //int Linha = 0;
-            //int Coluna = 0;
-            //StreamWriter writer = new StreamWriter("saida.txt");
-            //foreach (Linha_da_Matriz linha in MatrizTotal.Linha)
-            //{
-            //    foreach (Coluna_da_Matriz coluna in linha.Coluna)
-            //    {
-            //        writer.Write("{0} {1} {2} \r\n", Linha, Coluna, coluna.Valor);
-            //        Coluna++;
-            //    }
-            //    Linha++;
-            //    writer.Write("\r\n");
-            //    Coluna = 0;
-            //}
-            //writer.Close();
+            int Num_Linha = 0;
+            int Num_Coluna = 0;
+            StreamWriter writer = new StreamWriter("saida.dat");
+            foreach (Linha_da_Matriz linha in MatrizTotal.Linha)
+            {
+                foreach (Coluna_da_Matriz coluna in linha.Coluna)
+                {
+                    writer.Write("{0} {1} {2} \r\n", Num_Linha, Num_Coluna, coluna.Valor);
+                    Num_Coluna++;
+                }
+                Num_Linha++;
+                writer.Write("\r\n");
+                Num_Coluna = 0;
+            }
+            writer.Close();
 
 
         }
