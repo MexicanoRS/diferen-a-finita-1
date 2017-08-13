@@ -1,10 +1,8 @@
 ﻿using System;
 
-
-namespace diferença_finita_1
+namespace Matrizes
 {
-    partial class Program
-    {
+
         /// <summary>
         /// Esta Classe define alguns tipos mais básicos de matrizes lineares
         /// </summary>
@@ -209,5 +207,4 @@ namespace diferença_finita_1
 
         }
     }
-}
 

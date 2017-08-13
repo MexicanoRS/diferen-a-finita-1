@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Espalhamento de Temperatura em placa", "Espalhamento de Temperatura em placa\Espalhamento de Temperatura em placa.csproj", "{8172FD1D-4034-47A4-97B1-160499CF6F3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Matrizes", "..\Matrizes\Matrizes\Matrizes.csproj", "{435FDBA0-0AFF-4207-9652-213CEFBF254D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8172FD1D-4034-47A4-97B1-160499CF6F3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8172FD1D-4034-47A4-97B1-160499CF6F3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8172FD1D-4034-47A4-97B1-160499CF6F3A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{8172FD1D-4034-47A4-97B1-160499CF6F3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8172FD1D-4034-47A4-97B1-160499CF6F3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{435FDBA0-0AFF-4207-9652-213CEFBF254D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{435FDBA0-0AFF-4207-9652-213CEFBF254D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{435FDBA0-0AFF-4207-9652-213CEFBF254D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

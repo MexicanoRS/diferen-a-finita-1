@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using Matrizes;
 
-namespace diferença_finita_1
+
+namespace Espalhamento_de_Temperatura_em_placa
 {
     partial class Program
     {
@@ -17,11 +19,11 @@ namespace diferença_finita_1
 
             Criar_Matriz_de_Cálculo(ref MatrizTotal, out Matriz_Simples Matriz_Problema);
 
-            Mostrar_Matriz(ref Matriz_Problema, "\n\n A mantiz de Cálculo que foi instanciada é: \n\n");
+            //  Mostrar_Matriz(ref Matriz_Problema, "\n\n A mantiz de Cálculo que foi instanciada é: \n\n");
 
             Preencher_Matriz_de_Cálculo(ref MatrizTotal, ref Matriz_Problema);
 
-            Mostrar_Matriz(ref Matriz_Problema, "\n\n A mantiz de Cálculo que foi encontrada é: \n\n");
+            // Mostrar_Matriz(ref Matriz_Problema, "\n\n A mantiz de Cálculo que foi encontrada é: \n\n");
 
             Matriz_Problema.Verificar_critério_de_Sassenfeld();
 
@@ -367,4 +369,3 @@ namespace diferença_finita_1
 
     }
 }
-

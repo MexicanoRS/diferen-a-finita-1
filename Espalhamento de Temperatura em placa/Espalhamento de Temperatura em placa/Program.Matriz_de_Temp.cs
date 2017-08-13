@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace diferença_finita_1
+namespace Espalhamento_de_Temperatura_em_placa
 {
     partial class Program
     {
