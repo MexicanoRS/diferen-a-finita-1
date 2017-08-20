@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Matrizes;
-
+using AwokeKnowing.GnuplotCSharp;
 
 namespace Espalhamento_de_Temperatura_em_placa
 {
@@ -30,25 +30,36 @@ namespace Espalhamento_de_Temperatura_em_placa
             Matriz_Problema.Solucionar_matriz();
 
             Salvar_Solução(ref Matriz_Problema, ref MatrizTotal);
-
+            
             Mostrar_Matriz(Matriz_Problema.A);
             Mostrar_Matriz(ref MatrizTotal);
+            double[,] Matriz_Gnuplot = new double[MatrizTotal.Número_Max_de_Linhas, MatrizTotal.Número_Max_de_Colunas];
 
-            int Num_Linha = 0;
-            int Num_Coluna = 0;
-            StreamWriter writer = new StreamWriter("saida.dat");
-            foreach (Linha_da_Matriz linha in MatrizTotal.Linha)
+            for (int i = 0; i < MatrizTotal.Linha.Length; i++)
             {
-                foreach (Coluna_da_Matriz coluna in linha.Coluna)
+                for (int j = 0; j < MatrizTotal.Linha[i].Coluna.Length; j++)
                 {
-                    writer.Write("{0} {1} {2} \r\n", Num_Linha, Num_Coluna, coluna.Valor);
-                    Num_Coluna++;
+
+                      Matriz_Gnuplot[i,j] =  MatrizTotal.Linha[i].Coluna[j].Valor;
                 }
-                Num_Linha++;
-                writer.Write("\r\n");
-                Num_Coluna = 0;
             }
-            writer.Close();
+
+            GnuPlot.HeatMap(Matriz_Gnuplot);
+            //int Num_Linha = 0;
+            //int Num_Coluna = 0;
+            //StreamWriter writer = new StreamWriter("saida.dat");
+            //foreach (Linha_da_Matriz linha in MatrizTotal.Linha)
+            //{
+            //    foreach (Coluna_da_Matriz coluna in linha.Coluna)
+            //    {
+            //        writer.Write("{0} {1} {2} \r\n", Num_Linha, Num_Coluna, coluna.Valor);
+            //        Num_Coluna++;
+            //    }
+            //    Num_Linha++;
+            //    writer.Write("\r\n");
+            //    Num_Coluna = 0;
+            //}
+            //writer.Close();
 
 
         }

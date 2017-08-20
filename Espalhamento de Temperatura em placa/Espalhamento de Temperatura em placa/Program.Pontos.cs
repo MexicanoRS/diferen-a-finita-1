@@ -12,12 +12,35 @@
                 foreach (int colunas in Coluna)
                 {
                     Linha[i] = new Linha_da_Matriz(colunas);
+                    if (colunas > Número_Max_de_Colunas) Número_Max_de_Colunas = colunas;
                     i++;
                 }
+                Número_Max_de_Linhas = linha;
             }
+
+
+
+            private int número_max_de_colunas;
+
+            public int Número_Max_de_Colunas
+            {
+                get { return número_max_de_colunas; }
+                internal set { número_max_de_colunas = value; }
+            }
+
+
+            private int número_max_de_Linhas;
+
+            public int Número_Max_de_Linhas
+            {
+                get { return número_max_de_Linhas; }
+                internal set { número_max_de_Linhas = value; }
+            }
+
+
         }
 
-        public class Linha_da_Matriz 
+        public class Linha_da_Matriz
         {
             public Coluna_da_Matriz[] Coluna;
             public Linha_da_Matriz(int coluna)
