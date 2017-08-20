@@ -15,7 +15,9 @@ namespace Espalhamento_de_Temperatura_em_placa
 
             Inicializar_Matriz(out Pontos MatrizTotal);
 
-            Mostrar_Matriz(ref MatrizTotal, "\n\n A mantiz original era: \n\n\n");
+            Graficar_MatrizTotal(ref MatrizTotal);
+
+           // Mostrar_Matriz(ref MatrizTotal, "\n\n A mantiz original era: \n\n\n");
 
             Criar_Matriz_de_Cálculo(ref MatrizTotal, out Matriz_Simples Matriz_Problema);
 
@@ -30,9 +32,17 @@ namespace Espalhamento_de_Temperatura_em_placa
             Matriz_Problema.Solucionar_matriz();
 
             Salvar_Solução(ref Matriz_Problema, ref MatrizTotal);
-            
-            Mostrar_Matriz(Matriz_Problema.A);
-            Mostrar_Matriz(ref MatrizTotal);
+
+          //  Mostrar_Matriz(Matriz_Problema.A);
+          //  Mostrar_Matriz(ref MatrizTotal);
+
+            Graficar_MatrizTotal(ref MatrizTotal);
+
+
+        }
+
+        private static void Graficar_MatrizTotal(ref Pontos MatrizTotal)
+        {
             double[,] Matriz_Gnuplot = new double[MatrizTotal.Número_Max_de_Linhas, MatrizTotal.Número_Max_de_Colunas];
 
             for (int i = 0; i < MatrizTotal.Linha.Length; i++)
@@ -40,28 +50,28 @@ namespace Espalhamento_de_Temperatura_em_placa
                 for (int j = 0; j < MatrizTotal.Linha[i].Coluna.Length; j++)
                 {
 
-                      Matriz_Gnuplot[i,j] =  MatrizTotal.Linha[i].Coluna[j].Valor;
+                    Matriz_Gnuplot[i, j] = MatrizTotal.Linha[i].Coluna[j].Valor;
                 }
             }
 
+            double trocar_valor;
+            ///Iverte a ordem das linhas da Matriz a ser apresentado pelo Gnupolot.
+            for (int i = 0; i < MatrizTotal.Linha.Length / 2; i++)
+            {
+                ///inicializa do zero vetro de troca;
+                trocar_valor = 0;
+                /// bota todos os valores a serem trocadosno vetor de troca
+                for (int j = 0; j < MatrizTotal.Número_Max_de_Colunas; j++)
+                {
+                    trocar_valor = Matriz_Gnuplot[i, j];
+                    Matriz_Gnuplot[i, j] = Matriz_Gnuplot[MatrizTotal.Número_Max_de_Linhas - i - 1, j];
+                    Matriz_Gnuplot[MatrizTotal.Número_Max_de_Linhas - i - 1, j] = trocar_valor;
+                }
+            }
+            GnuPlot.Set("nokey");
+            GnuPlot.Set("title \"Matriz\"");
             GnuPlot.HeatMap(Matriz_Gnuplot);
-            //int Num_Linha = 0;
-            //int Num_Coluna = 0;
-            //StreamWriter writer = new StreamWriter("saida.dat");
-            //foreach (Linha_da_Matriz linha in MatrizTotal.Linha)
-            //{
-            //    foreach (Coluna_da_Matriz coluna in linha.Coluna)
-            //    {
-            //        writer.Write("{0} {1} {2} \r\n", Num_Linha, Num_Coluna, coluna.Valor);
-            //        Num_Coluna++;
-            //    }
-            //    Num_Linha++;
-            //    writer.Write("\r\n");
-            //    Num_Coluna = 0;
-            //}
-            //writer.Close();
-
-
+            Console.ReadKey();
         }
 
         private static void Salvar_Solução(ref Matriz_Simples matriz_Problema, ref Pontos matrizTotal)
