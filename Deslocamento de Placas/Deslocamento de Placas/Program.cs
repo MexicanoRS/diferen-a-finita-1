@@ -9,9 +9,21 @@ namespace Deslocamento_de_Placas
 {
     partial class Program
     {
+        static public double X_total = 1;
+        static public double Y_total = 1;
+
+        static public double DX = 1;
+        static public double DY = 1;
 
         static void Main(string[] args)
         {
+
+            Console.WriteLine("Diga o tamanho máximo no eixo X:");
+            Console.WriteLine("X=5 metros");
+            X_total = 5;
+            Console.WriteLine("Diga o tamanho máximo no eixo Y:");
+            Console.WriteLine("Y=5 metros");
+            Y_total = 5;
 
             Inicializar_Matriz(out Pontos MatrizTotal);
 
@@ -115,6 +127,8 @@ namespace Deslocamento_de_Placas
             /// Este código vai varrer ponto por ponto e observar os seus vizinhos para preencher a matriz de cálculo
             int Nome_do_ponto = 0;
             int N = Matriz.Número_de_Variáveis;
+            DX = X_total / (MatrizTotal.Número_Max_de_Colunas - 1);
+            DY = Y_total / (MatrizTotal.Número_Max_de_Linhas - 1);
             for (int i = 0; i < MatrizTotal.Linha.Length; i++)
             {
                 for (int j = 0; j < MatrizTotal.Linha[i].Coluna.Length; j++)
@@ -122,7 +136,7 @@ namespace Deslocamento_de_Placas
                     if (MatrizTotal.Linha[i].Coluna[j].Nome >= 0)
                     {
                         // Central
-                        Matriz.A[Nome_do_ponto, MatrizTotal.Linha[i].Coluna[j].Nome] = -4;
+                        Matriz.A[Nome_do_ponto, MatrizTotal.Linha[i].Coluna[j].Nome] = ((6/Math.Pow(DX,4))+ (6 / Math.Pow(DY, 4))+ (8 / (Math.Pow(DX, 2)* Math.Pow(DY, 2))));
 
                         // Direita
                         if (MatrizTotal.Linha[i].Coluna[j - 1].Nome < 0)
@@ -194,7 +208,7 @@ namespace Deslocamento_de_Placas
         /// <param name="MatrizTotal">Matriz vazia onde vão ser armazenadas todos os pontos</param>
         public static void Inicializar_Matriz(out Pontos MatrizTotal)
         {
-            string[] Linhas = File.ReadAllLines(@"Caso Final.txt", Encoding.UTF8);
+            string[] Linhas = File.ReadAllLines(@"Caso Simples 1.txt", Encoding.UTF8);
             Matriz_de_Temp Matriz_de_Temperaturas = new Matriz_de_Temp();
             Matriz_de_Temperaturas.Adicionar_Ponto(0, 0);
             int Caso = 0;
