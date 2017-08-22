@@ -42,12 +42,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controles.cs" />
+    <Compile Include="Equação de Lagrange.cs" />
     <Compile Include="GnuPlot.cs" />
     <Compile Include="Interfaces.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Program.Matriz_de_Temp.cs" />
     <Compile Include="Program.Pontos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Variáveis Globais.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
