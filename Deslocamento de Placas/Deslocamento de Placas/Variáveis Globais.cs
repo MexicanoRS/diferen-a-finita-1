@@ -4,6 +4,7 @@ namespace Deslocamento_de_Placas
     partial class Program
     {
 
+
         static public double X_total = 1;
         static public double Y_total = 1;
 
