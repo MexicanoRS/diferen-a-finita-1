@@ -1,14 +1,13 @@
 ﻿using System;
 using Matrizes;
 
-
 namespace Deslocamento_de_Placas
-{
-    partial class Program
     {
+    partial class Program
+        {
 
         static void Main(string[] args)
-        {
+            {
 
             Console.WriteLine("Diga o tamanho máximo no eixo X:");
             Console.WriteLine("X=5 metros");
@@ -35,10 +34,9 @@ namespace Deslocamento_de_Placas
 
             Graficar_MatrizTotal(ref MatrizTotal);
 
-        }
-
+            }
         private static void Apresentação()
-        {
+            {
             Console.WriteLine("\t\t------------------------------------------------");
             Console.WriteLine("\t\t|          Alguns valores de Exemplo           |");
             Console.WriteLine("\t\t------------------------------------------------");
@@ -55,14 +53,42 @@ namespace Deslocamento_de_Placas
             Console.WriteLine("\t\t| Coef.de Poisson v =0.25                      |");
             Console.WriteLine("\t\t| Módulo de Young 80G Pa <= E <= 170 GPa       |");
             Console.WriteLine("\t\t------------------------------------------------");
-#if(DEBUG)
             Console.WriteLine("\n\n\t\t------------------------------------------------");
+            Console.WriteLine("\t\t|                   ATENÇÃO!                   |");
+            Console.WriteLine("\t\t------------------------------------------------");
+            Console.WriteLine("\t\t------------------------------------------------");
             Console.WriteLine("\t\t|            Você esta no modo Debug           |");
             Console.WriteLine("\t\t|        Não é possível alterar valores        |");
             Console.WriteLine("\t\t------------------------------------------------");
-#else
 
-#endif
+
+            E_Placa = 25 * Math.Pow(10, 9);
+            v = 0.12;
+            if ( X_total >= Y_total )
+                {
+                l_Laje = X_total;
+                }
+            else
+                {
+                l_Laje = Y_total;
+                }
+
+            t_placa = 0.001;
+
+            D = E_Placa * ( Math.Pow(t_placa, 3) ) / ( 12 * ( 1 - Math.Pow(v, 2) ) );
+
+            Console.WriteLine("\t\t------------------------------------------------");
+            Console.WriteLine("\t\t|               Valores Definidos              |");
+            Console.WriteLine("\t\t------------------------------------------------");
+            Console.WriteLine("\t\t| Largura da placa na direção X   {0:0.00}         |", X_total);
+            Console.WriteLine("\t\t| Largura da placa na direção Y   {0:0.00}         |", Y_total);
+            Console.WriteLine("\t\t| Coef.de Poisson   {0:0.00}                       |", v);
+            Console.WriteLine("\t\t| Módulo de Young   {0:0.00}  GPa                 |", E_Placa / 1000000000);
+            Console.WriteLine("\t\t| lagura da Laje    {0:0.000}  m                   |", l_Laje);
+            Console.WriteLine("\t\t| Espessura da Laje {0:0.000}  cm                  |", t_placa*100);
+            Console.WriteLine("\t\t| Razão Largura/espessura {0:0.0}               |", l_Laje/t_placa );
+            Console.WriteLine("\t\t| Modulo de rigidez à flexão {0:0.00000}           |", D);
+            Console.WriteLine("\t\t------------------------------------------------");
+            }
         }
     }
-}
