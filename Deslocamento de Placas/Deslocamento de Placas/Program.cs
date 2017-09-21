@@ -30,8 +30,12 @@ namespace Deslocamento_de_Placas
 
             Matriz_Problema.Solucionar_matriz();
 
-            Salvar_Solução(ref Matriz_Problema, ref MatrizTotal);
+            Mostrar_Matriz(Matriz_Problema.A);
+            Console.ReadKey();
 
+            Salvar_Solução(ref Matriz_Problema, ref MatrizTotal);
+            Mostrar_Matriz(ref MatrizTotal);
+            Console.ReadKey();
             Graficar_MatrizTotal(ref MatrizTotal);
 
             }
