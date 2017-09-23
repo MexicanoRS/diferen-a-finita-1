@@ -10,10 +10,10 @@ namespace Deslocamento_de_Placas
             {
 
             Console.WriteLine("Diga o tamanho máximo no eixo X:");
-            Console.WriteLine("X=5 metros");
+            Console.WriteLine("X=4 metros");
             X_total = 5;
             Console.WriteLine("Diga o tamanho máximo no eixo Y:");
-            Console.WriteLine("Y=5 metros");
+            Console.WriteLine("Y=4 metros");
             Y_total = 5;
 
             Apresentação();
@@ -31,11 +31,10 @@ namespace Deslocamento_de_Placas
             Matriz_Problema.Solucionar_matriz();
 
             Mostrar_Matriz(Matriz_Problema.A);
-            Console.ReadKey();
-
+            //Console.ReadKey();
             Salvar_Solução(ref Matriz_Problema, ref MatrizTotal);
             Mostrar_Matriz(ref MatrizTotal);
-            Console.ReadKey();
+            // Console.ReadKey();
             Graficar_MatrizTotal(ref MatrizTotal);
 
             }
@@ -89,8 +88,8 @@ namespace Deslocamento_de_Placas
             Console.WriteLine("\t\t| Coef.de Poisson   {0:0.00}                       |", v);
             Console.WriteLine("\t\t| Módulo de Young   {0:0.00}  GPa                 |", E_Placa / 1000000000);
             Console.WriteLine("\t\t| lagura da Laje    {0:0.000}  m                   |", l_Laje);
-            Console.WriteLine("\t\t| Espessura da Laje {0:0.000}  cm                  |", t_placa*100);
-            Console.WriteLine("\t\t| Razão Largura/espessura {0:0.0}               |", l_Laje/t_placa );
+            Console.WriteLine("\t\t| Espessura da Laje {0:0.000}  cm                  |", t_placa * 100);
+            Console.WriteLine("\t\t| Razão Largura/espessura {0:0.0}               |", l_Laje / t_placa);
             Console.WriteLine("\t\t| Modulo de rigidez à flexão {0:0.00000}           |", D);
             Console.WriteLine("\t\t------------------------------------------------");
             }
