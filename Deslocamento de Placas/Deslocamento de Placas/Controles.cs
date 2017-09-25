@@ -19,7 +19,7 @@ namespace Deslocamento_de_Placas
                 for ( int j = 0; j < MatrizTotal.Linha[ i ].Coluna.Length; j++ )
                     {
 
-                    Matriz_Gnuplot[ i, j ] = MatrizTotal.Linha[ i ].Coluna[ j ].Valor * 100;
+                    Matriz_Gnuplot[ i, j ] = MatrizTotal.Linha[ i ].Coluna[ j ].Valor * 1000;
                     if ( max_range < MatrizTotal.Linha[ i ].Coluna[ j ].Valor ) max_range = MatrizTotal.Linha[ i ].Coluna[ j ].Valor;
                     if ( min_range > MatrizTotal.Linha[ i ].Coluna[ j ].Valor ) min_range = MatrizTotal.Linha[ i ].Coluna[ j ].Valor;
                     }

@@ -10,11 +10,11 @@ namespace Deslocamento_de_Placas
             {
 
             Console.WriteLine("Diga o tamanho máximo no eixo X:");
-            Console.WriteLine("X=4 metros");
-            X_total = 5;
+            Console.WriteLine("X=1 metros");
+            X_total = 1;
             Console.WriteLine("Diga o tamanho máximo no eixo Y:");
-            Console.WriteLine("Y=4 metros");
-            Y_total = 5;
+            Console.WriteLine("Y=1 metros");
+            Y_total = 1;
 
             Apresentação();
 

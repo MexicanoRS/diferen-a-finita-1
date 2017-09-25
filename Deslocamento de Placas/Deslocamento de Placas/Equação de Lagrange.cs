@@ -84,6 +84,19 @@ namespace Deslocamento_de_Placas
                             {
                             if ( ( j - 2 ) < 0 )
                                 {
+                                switch ( MatrizTotal.Linha[ i ].Coluna[ j ].Nome )
+                                    {
+                                    case -1:
+                                        Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i ].Coluna[ j ].Nome ] += -( 1 / ( Pow(DX, 4) ) );
+                                        break;
+                                    case -2:
+                                        Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i ].Coluna[ j ].Nome ] += -( 1 / ( Pow(DX, 4) ) );
+                                        Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i ].Coluna[ j ].Nome ] += -( 1 / ( Pow(DX, 4) ) );
+                                        Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i ].Coluna[ j ].Nome ] += -( 1 / ( Pow(DX, 4) ) );
+                                        break;
+                                    default:
+                                        break;
+                                    }
                                 Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i ].Coluna[ j ].Nome ] += -( 1 / ( Pow(DX, 4) ) );
                                 }
                             }
