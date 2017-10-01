@@ -60,7 +60,7 @@ namespace Deslocamento_de_Placas
                         //     └───┼───┼───┘
                         //         │   │  
                         //         └───┘
-                        if ( ( j - 1 ) >= 0 && MatrizTotal.Linha[ i ].Coluna[ j - 1 ].Nome >= 0 )
+                        if ( ( j - 1 ) > 0 && MatrizTotal.Linha[ i ].Coluna[ j - 1 ].Nome >= 0 )
                             {
                             Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i ].Coluna[ j - 1 ].Nome ] += -( 4 / Pow(DX, 4) ) - ( 4 / ( Pow(DX, 2) * Pow(DY, 2) ) );
                             }
@@ -76,7 +76,7 @@ namespace Deslocamento_de_Placas
                         //     └───┼───┼───┘
                         //         │   │  
                         //         └───┘
-                        if ( ( j - 2 ) >= 0 && MatrizTotal.Linha[ i ].Coluna[ j - 2 ].Nome >= 0 )
+                        if ( ( j - 2 ) > 0 && MatrizTotal.Linha[ i ].Coluna[ j - 2 ].Nome >= 0 )
                             {
                             Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i ].Coluna[ j - 2 ].Nome ] += ( 1 / ( Pow(DX, 4) ) );
                             }
@@ -84,20 +84,19 @@ namespace Deslocamento_de_Placas
                             {
                             if ( ( j - 2 ) < 0 )
                                 {
-                                switch ( MatrizTotal.Linha[ i ].Coluna[ j ].Nome )
+                                switch ( MatrizTotal.Linha[ i ].Coluna[ j - 1 ].Nome )
                                     {
                                     case -1:
                                         Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i ].Coluna[ j ].Nome ] += -( 1 / ( Pow(DX, 4) ) );
                                         break;
                                     case -2:
-                                        Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i ].Coluna[ j ].Nome ] += -( 1 / ( Pow(DX, 4) ) );
-                                        Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i ].Coluna[ j ].Nome ] += -( 1 / ( Pow(DX, 4) ) );
-                                        Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i ].Coluna[ j ].Nome ] += -( 1 / ( Pow(DX, 4) ) );
+                                        Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i ].Coluna[ j ].Nome ] += ( 1 / ( Pow(DX, 4) ) ) * ( 18 / (double)3 );
+                                        Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i ].Coluna[ j + 1 ].Nome ] += ( 1 / ( Pow(DX, 4) ) ) * ( -6 / (double)3 );
+                                        Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i ].Coluna[ j + 2 ].Nome ] += ( 1 / ( Pow(DX, 4) ) ) * ( 1 / (double)3 );
                                         break;
                                     default:
                                         break;
                                     }
-                                Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i ].Coluna[ j ].Nome ] += -( 1 / ( Pow(DX, 4) ) );
                                 }
                             }
                         // Direita
@@ -112,7 +111,7 @@ namespace Deslocamento_de_Placas
                         //     └───┼───┼───┘
                         //         │   │  
                         //         └───┘
-                        if ( ( j + 1 ) < MatrizTotal.Linha[ i ].Coluna.Length && MatrizTotal.Linha[ i ].Coluna[ j + 1 ].Nome >= 0 )
+                        if ( ( j + 1 ) <= ( MatrizTotal.Linha[ i ].Coluna.Length - 2 ) && MatrizTotal.Linha[ i ].Coluna[ j + 1 ].Nome >= 0 )
                             {
                             Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i ].Coluna[ j + 1 ].Nome ] += -( 4 / Pow(DX, 4) ) - ( 4 / ( Pow(DX, 2) * Pow(DY, 2) ) );
                             }
@@ -128,15 +127,34 @@ namespace Deslocamento_de_Placas
                         //     └───┼───┼───┘
                         //         │   │  
                         //         └───┘
-                        if ( ( j + 2 ) < MatrizTotal.Linha[ i ].Coluna.Length && MatrizTotal.Linha[ i ].Coluna[ j + 2 ].Nome >= 0 )
+                        if ( ( j + 2 ) <= ( MatrizTotal.Linha[ i ].Coluna.Length - 2 ) && MatrizTotal.Linha[ i ].Coluna[ j + 2 ].Nome >= 0 )
                             {
                             Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i ].Coluna[ j + 2 ].Nome ] += ( 1 / ( Pow(DX, 4) ) );
                             }
                         else
                             {
-                            if ( ( j + 2 ) >= MatrizTotal.Linha[ i ].Coluna.Length )
-                                Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i ].Coluna[ j ].Nome ] += -( 1 / ( Pow(DX, 4) ) );
+                            if ( ( j + 2 ) > ( MatrizTotal.Linha[ i ].Coluna.Length - 2 + 1 ) )
+                                {
+                                switch ( MatrizTotal.Linha[ i ].Coluna[ j + 1 ].Nome )
+                                    {
+                                    case -1:
+                                        Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i ].Coluna[ j ].Nome ] += -( 1 / ( Pow(DX, 4) ) );
+                                        break;
+                                    case -2:
+                                        Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i ].Coluna[ j ].Nome ] += ( 1 / ( Pow(DX, 4) ) ) * ( 18 / (double)3 );
+                                        Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i ].Coluna[ j - 1 ].Nome ] += ( 1 / ( Pow(DX, 4) ) ) * ( -6 / (double)3 );
+                                        Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i ].Coluna[ j - 2 ].Nome ] += ( 1 / ( Pow(DX, 4) ) ) * ( 1 / (double)3 );
+                                        break;
+                                    default:
+                                        break;
+                                    }
+                                }
                             }
+                        //else
+                        //    {
+                        //    if ( ( j + 2 ) <= MatrizTotal.Linha[ i ].Coluna.Length - 2 )
+                        //        Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i ].Coluna[ j + 2 ].Nome ] += ( 1 / ( Pow(DX, 4) ) );
+                        //    }
                         // Em cima
                         //         ┌───┐
                         //         │   │
@@ -149,7 +167,7 @@ namespace Deslocamento_de_Placas
                         //     └───┼───┼───┘
                         //         │   │  
                         //         └───┘
-                        if ( ( i - 1 ) >= 0 && MatrizTotal.Linha[ i - 1 ].Coluna[ j ].Nome >= 0 )
+                        if ( ( i - 1 ) > 0 && MatrizTotal.Linha[ i - 1 ].Coluna[ j ].Nome >= 0 )
                             {
                             Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i - 1 ].Coluna[ j ].Nome ] += -( 4 / Pow(DY, 4) ) - ( 4 / ( Pow(DX, 2) * Pow(DY, 2) ) );
                             }
@@ -165,14 +183,28 @@ namespace Deslocamento_de_Placas
                         //     └───┼───┼───┘
                         //         │   │  
                         //         └───┘
-                        if ( ( i - 2 ) >= 0 && MatrizTotal.Linha[ i - 2 ].Coluna[ j ].Nome >= 0 )
+                        if ( ( i - 2 ) > 0 && MatrizTotal.Linha[ i - 2 ].Coluna[ j ].Nome >= 0 )
                             {
                             Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i - 2 ].Coluna[ j ].Nome ] += ( 1 / ( Pow(DY, 4) ) );
                             }
                         else
                             {
                             if ( ( i - 2 ) < 0 )
-                                Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i ].Coluna[ j ].Nome ] += -( 1 / ( Pow(DY, 4) ) );
+                                {
+                                switch ( MatrizTotal.Linha[ i - 1 ].Coluna[ j ].Nome )
+                                    {
+                                    case -1:
+                                        Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i ].Coluna[ j ].Nome ] += -( 1 / ( Pow(DY, 4) ) );
+                                        break;
+                                    case -2:
+                                        Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i ].Coluna[ j ].Nome ] += ( 1 / ( Pow(DX, 4) ) ) * ( 18 / (double)3 );
+                                        Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i + 1 ].Coluna[ j ].Nome ] += ( 1 / ( Pow(DX, 4) ) ) * ( -6 / (double)3 );
+                                        Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i + 2 ].Coluna[ j ].Nome ] += ( 1 / ( Pow(DX, 4) ) ) * ( 1 / (double)3 );
+                                        break;
+                                    default:
+                                        break;
+                                    }
+                                }
                             }
                         // Em baixo
                         //         ┌───┐
@@ -186,7 +218,7 @@ namespace Deslocamento_de_Placas
                         //     └───┼───┼───┘
                         //         │   │  
                         //         └───┘
-                        if ( ( i + 1 ) < MatrizTotal.Linha.Length && MatrizTotal.Linha[ i + 1 ].Coluna[ j ].Nome >= 0 )
+                        if ( ( i + 1 ) <= ( MatrizTotal.Linha.Length - 2 ) && MatrizTotal.Linha[ i + 1 ].Coluna[ j ].Nome >= 0 )
                             {
                             Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i + 1 ].Coluna[ j ].Nome ] += -( 4 / Pow(DY, 4) ) - ( 4 / ( Pow(DX, 2) * Pow(DY, 2) ) );
                             }
@@ -202,14 +234,28 @@ namespace Deslocamento_de_Placas
                         //     └───┼───┼───┘
                         //         │ █ │  
                         //         └───┘
-                        if ( ( i + 2 ) < MatrizTotal.Linha.Length && MatrizTotal.Linha[ i + 2 ].Coluna[ j ].Nome >= 0 )
+                        if ( ( i + 2 ) <= ( MatrizTotal.Linha.Length - 2 ) && MatrizTotal.Linha[ i + 2 ].Coluna[ j ].Nome >= 0 )
                             {
                             Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i + 2 ].Coluna[ j ].Nome ] += ( 1 / ( Pow(DY, 4) ) );
                             }
                         else
                             {
-                            if ( ( i + 2 ) >= MatrizTotal.Linha.Length )
-                                Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i ].Coluna[ j ].Nome ] += -( 1 / ( Pow(DY, 4) ) );
+                            if ( ( i + 2 ) > ( MatrizTotal.Linha.Length - 2 + 1 ) )
+                                {
+                                switch ( MatrizTotal.Linha[ i + 1 ].Coluna[ j ].Nome )
+                                    {
+                                    case -1:
+                                        Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i ].Coluna[ j ].Nome ] += -( 1 / ( Pow(DY, 4) ) );
+                                        break;
+                                    case -2:
+                                        Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i ].Coluna[ j ].Nome ] += ( 1 / ( Pow(DX, 4) ) ) * ( 18 / (double)3 );
+                                        Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i - 1 ].Coluna[ j ].Nome ] += ( 1 / ( Pow(DX, 4) ) ) * ( -6 / (double)3 );
+                                        Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i - 2 ].Coluna[ j ].Nome ] += ( 1 / ( Pow(DX, 4) ) ) * ( 1 / (double)3 );
+                                        break;
+                                    default:
+                                        break;
+                                    }
+                                }
                             }
                         // Em Baixo e Direita 
                         //         ┌───┐
@@ -223,7 +269,7 @@ namespace Deslocamento_de_Placas
                         //     └───┼───┼───┘
                         //         │   │  
                         //         └───┘
-                        if ( ( i + 1 ) < MatrizTotal.Linha.Length && ( j + 1 ) < MatrizTotal.Linha[ i ].Coluna.Length && EhPontoInterno(1, 1, ref MatrizTotal) )
+                        if ( ( i + 1 ) <= ( MatrizTotal.Linha.Length - 2 ) && ( j + 1 ) <= ( MatrizTotal.Linha[ i ].Coluna.Length - 2 ) && EhPontoInterno(1, 1, ref MatrizTotal) )
                             {
                             Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i + 1 ].Coluna[ j + 1 ].Nome ] += ( 2 / ( Pow(DX, 2) * Pow(DY, 2) ) );
                             }
@@ -239,7 +285,7 @@ namespace Deslocamento_de_Placas
                         //     └───┼───┼───┘
                         //         │   │  
                         //         └───┘
-                        if ( ( i + 1 ) < MatrizTotal.Linha.Length && ( j - 1 ) > 0 && EhPontoInterno(1, -1, ref MatrizTotal) )
+                        if ( ( i + 1 ) <= ( MatrizTotal.Linha.Length - 2 ) && ( j - 1 ) > 0 && EhPontoInterno(1, -1, ref MatrizTotal) )
                             {
                             Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i + 1 ].Coluna[ j - 1 ].Nome ] += ( 2 / ( Pow(DX, 2) * Pow(DY, 2) ) );
                             }
@@ -255,7 +301,7 @@ namespace Deslocamento_de_Placas
                         //     └───┼───┼───┘
                         //         │   │  
                         //         └───┘
-                        if ( ( i - 1 ) >= 0 && ( j - 1 ) > 0 && EhPontoInterno(-1, -1, ref MatrizTotal) )
+                        if ( ( i - 1 ) > 0 && ( j - 1 ) > 0 && EhPontoInterno(-1, -1, ref MatrizTotal) )
                             {
                             Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i - 1 ].Coluna[ j - 1 ].Nome ] += ( 2 / ( Pow(DX, 2) * Pow(DY, 2) ) );
                             }
@@ -271,7 +317,7 @@ namespace Deslocamento_de_Placas
                         //     └───┼───┼───┘
                         //         │   │  
                         //         └───┘
-                        if ( ( i - 1 ) >= 0 && ( j + 1 ) < MatrizTotal.Linha[ i ].Coluna.Length && EhPontoInterno(-1, 1, ref MatrizTotal) )
+                        if ( ( i - 1 ) > 0 && ( j + 1 ) <= ( MatrizTotal.Linha[ i ].Coluna.Length - 2 ) && EhPontoInterno(-1, 1, ref MatrizTotal) )
                             {
                             Matriz.A[ Nome_do_ponto, MatrizTotal.Linha[ i - 1 ].Coluna[ j + 1 ].Nome ] += ( 2 / ( Pow(DX, 2) * Pow(DY, 2) ) );
                             }

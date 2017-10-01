@@ -103,7 +103,7 @@ namespace Deslocamento_de_Placas
         /// <param name="MatrizTotal">Matriz vazia onde vão ser armazenadas todos os pontos</param>
         public static void Inicializar_Matriz(out Pontos MatrizTotal)
             {
-            string[] Linhas = File.ReadAllLines(@"Caso Simples 2.txt", Encoding.UTF8);
+            string[] Linhas = File.ReadAllLines(@"Caso Simples 1.txt", Encoding.UTF8);
             Matriz_de_Temp Matriz_de_Temperaturas = new Matriz_de_Temp();
             Matriz_de_Temperaturas.Adicionar_Ponto(0, 0);
             int Caso = 0;
@@ -234,9 +234,9 @@ namespace Deslocamento_de_Placas
                         Console.Write("       ");
                     else
                     if ( Matriz.Linha[ i ].Coluna[ j ].Valor >= 0 )
-                        Console.Write("  {0:00.00}", Matriz.Linha[ i ].Coluna[ j ].Valor);
+                        Console.Write("  {0:00.0000}", Matriz.Linha[ i ].Coluna[ j ].Valor);
                     else
-                        Console.Write(" {0:00.00}", Matriz.Linha[ i ].Coluna[ j ].Valor);
+                        Console.Write(" {0:00.0000}", Matriz.Linha[ i ].Coluna[ j ].Valor);
                     }
                 Console.Write("\n\n");
                 }

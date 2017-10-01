@@ -11,10 +11,10 @@ namespace Deslocamento_de_Placas
 
             Console.WriteLine("Diga o tamanho máximo no eixo X:");
             Console.WriteLine("X=1 metros");
-            X_total = 1;
+            X_total = 4;
             Console.WriteLine("Diga o tamanho máximo no eixo Y:");
             Console.WriteLine("Y=1 metros");
-            Y_total = 1;
+            Y_total = 4;
 
             Apresentação();
 
@@ -25,6 +25,7 @@ namespace Deslocamento_de_Placas
             Criar_Matriz_de_Cálculo(ref MatrizTotal, out Matriz_Simples Matriz_Problema);
 
             Preencher_Matriz_de_Cálculo(ref MatrizTotal, ref Matriz_Problema);
+            Mostrar_Matriz( Matriz_Problema.A);
 
             Matriz_Problema.Verificar_critério_de_Sassenfeld();
 
