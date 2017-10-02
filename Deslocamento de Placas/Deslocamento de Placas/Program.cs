@@ -20,7 +20,7 @@ namespace Deslocamento_de_Placas
 
             Inicializar_Matriz(out Pontos MatrizTotal);
 
-           // Graficar_MatrizTotal(ref MatrizTotal);
+            Graficar_MatrizTotal(ref MatrizTotal);
 
             Criar_Matriz_de_Cálculo(ref MatrizTotal, out Matriz_Simples Matriz_Problema);
 
@@ -34,7 +34,7 @@ namespace Deslocamento_de_Placas
             //   Mostrar_Matriz(Matriz_Problema.A);
             //Console.ReadKey();
             Salvar_Solução(ref Matriz_Problema, ref MatrizTotal);
-            // Mostrar_Matriz(ref MatrizTotal);
+            Mostrar_Matriz(ref MatrizTotal);
             // Console.ReadKey();
             Graficar_MatrizTotal(ref MatrizTotal);
 

@@ -57,7 +57,7 @@ namespace Matrizes
         /// <summary>
         /// Númeor de casas
         /// </summary>
-        private int precisão = 4;
+        private int precisão = 2;
         /// <summary>
         /// Númeor de casas
         /// </summary>
